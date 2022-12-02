@@ -1,10 +1,14 @@
-export class Dish {
-    id: string | undefined;
-    name: string | undefined;
-    image: string | undefined;
-    category: string | undefined;
-    featured: boolean | undefined;
-    label: string | undefined;
-    price: string | undefined;
-    description: string | undefined;
+import { Comment } from "./comment";
+
+
+export interface Dish {
+    id: string;
+    name: string;
+    image: string;
+    category: string;
+    featured: boolean;
+    label: string;
+    price: string;
+    description: string;
+    comments: Comment[];
 }
