@@ -51,32 +51,6 @@ npm install --save @angular/flex-layout@6.0.0-beta.18
 
 Then, you need to import the Angular Animations Module, Angular Material Toolbar Module, Flex Layout Module and hammerjs into your root module (src/app/app.module.ts) as follows:
 
-<--import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar'; 
-import { FlexLayoutModule } from '@angular/flex-layout';
-
-. . . 
-
-import 'hammerjs';
-
-@NgModule({
-  
-  . . . 
-  
-  imports: [ 
-    
-    . . .,
-    
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    FlexLayoutModule
-    
-  ], 
-    
-    . . . 
-  
-  
-}) -->
 
 
 
