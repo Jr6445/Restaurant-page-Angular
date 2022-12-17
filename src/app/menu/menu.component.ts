@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Dish } from '../share/dish';
 import { DishService } from '../services/dish.service';
 
@@ -11,11 +11,8 @@ export class MenuComponent implements OnInit {
 
   dishes: Dish[];
 
-  selectedDish: Dish;
-
-  constructor(private dishService: DishService) {
-
-   }
+  constructor(private dishService: DishService,
+    @Inject('BaseURL') public BaseURL:any) { }
 
   ngOnInit(): void {
     this.dishService.getDishes()
@@ -24,8 +21,5 @@ export class MenuComponent implements OnInit {
     
   }
 
-  onSelect(dish: Dish){
-    this.selectedDish=dish;
-  }
 
 }

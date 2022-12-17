@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject} from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dish } from '../share/dish';
@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs';
 import { Comment } from "../share/comment";
+import {MatSliderModule} from '@angular/material/slider';
 
 
 
@@ -53,7 +54,8 @@ export class DishdetailComponent implements OnInit {
   constructor(private dishService:DishService, 
     private route:ActivatedRoute,
     private location:Location,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    @Inject('BaseURL') public BaseURL:any) {
       this.createForm();
      }
 
