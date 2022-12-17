@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { Leader } from '../share/leader';
 import { LEADERS } from '../share/leaders';
+import { baseURL}  from '../share/baseurl';
+import { HttpClient } from '@angular/common/http';
+import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 
 @Injectable({
@@ -12,7 +15,7 @@ export class LeaderService {
   constructor() { }
 
   getLeaders(): Observable<Leader[]>{
-    return of(LEADERS).pipe(delay(2000));
+    return of().pipe(delay(2000));
   }
 
   getLeader(id:string): Observable<Leader>{

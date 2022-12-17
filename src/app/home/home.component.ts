@@ -5,11 +5,19 @@ import { Promotion } from '../share/promotion';
 import { PromotionService } from '../services/promotion.service';
 import { Leader } from '../share/leader';
 import { LeaderService } from '../services/leader.service';
+import { expand, flyInOut } from '../animations/app.animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+    },
+    animations: [
+      flyInOut(),expand()
+    ]
 })
 export class HomeComponent implements OnInit {
 
@@ -26,6 +34,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
     this.dishService.getFeaturedDish()
     .subscribe((dish) => this.dish = dish,
       errmess => this.dishErrMess = <any>errmess);

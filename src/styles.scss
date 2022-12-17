@@ -1,6 +1,5 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "variables";
-@import '../node_modules/font-awesome/scss/font-awesome.scss';
 
 // some basic resets 
 
@@ -48,4 +47,11 @@ body {
 .container{
   margin: 20px;
   display: flex;
+}
+
+.highlight {
+    background-color: $background-pale;
+    border: 1px solid $primary-color-dark;
+    z-index: 1;
+    transform: scale(1.01);
 }
