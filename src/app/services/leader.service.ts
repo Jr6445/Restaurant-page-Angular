@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { catchError, delay, map, Observable, of } from 'rxjs';
 import { Leader } from '../share/leader';
 import { LEADERS } from '../share/leaders';
 import { baseURL}  from '../share/baseurl';
@@ -12,17 +12,21 @@ import { ProcessHTTPMsgService } from './process-httpmsg.service';
 })
 export class LeaderService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private processHTTPMsgService: ProcessHTTPMsgService) { }
 
   getLeaders(): Observable<Leader[]>{
-    return of().pipe(delay(2000));
+    return this.http.get<Leader[]>(baseURL+'leadership')
+    .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getLeader(id:string): Observable<Leader>{
-    return of(LEADERS.filter((leader) => leader.id === id)[0]).pipe(delay(2000)); 
+    return this.http.get<Leader>(baseURL+'leadership/'+id)
+    .pipe(catchError(this.processHTTPMsgService.handleError)); 
   }
   getFeaturedLeader(): Observable<Leader> {
-    return of(LEADERS.filter((leader) => leader.featured)[0]).pipe(delay(2000));
+    return this.http.get<Leader | any>(baseURL+'leadership?featured=true')
+    .pipe(map(leaders => leaders[0]))
+    .pipe(catchError(this.processHTTPMsgService.handleError));
 
   }
 

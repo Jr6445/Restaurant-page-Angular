@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { expand, flyInOut } from '../animations/app.animations';
 import { Feedback, ContactType } from '../share/feedback';
+import { FeedbackService } from '../services/feedback.service';
 
 
 @Component({
@@ -21,7 +22,13 @@ export class ContactComponent implements OnInit {
   
   feedbackForm: FormGroup;
   feedback: Feedback;
+  feedbackCopy: Feedback;
   contactType = ContactType;
+  visibility = 'hidden';
+  errMess: string;
+  waitingForResponse = false;
+  isHidden = false;
+
   @ViewChild('fform') feedbackFormDirective: any;
 
   formErrors = {
@@ -52,7 +59,7 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private feedbackService:FeedbackService) {
     this.createForm();
    }
 
@@ -105,6 +112,17 @@ export class ContactComponent implements OnInit {
   onSubmit(){
     this.feedback= this.feedbackForm.value;
     console.log(this.feedback)
+    this.feedbackService.submitFeedback(this.feedback)
+      .subscribe(feedback => {
+        this.waitingForResponse = false;
+        this.feedback = feedback; this.feedbackCopy=feedback;
+        this.visibility = 'shown';
+        setTimeout(() => {
+          this.visibility = 'hidden';
+          this.isHidden = false;
+        }, 5000)
+      })
+      
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
@@ -117,4 +135,20 @@ export class ContactComponent implements OnInit {
     this.feedbackFormDirective.resetForm();
   }
 
+/*   onSubmit() {
+    this.comment = this.commentForm.value;
+    this.comment.date = new Date().toISOString();
+    this.dishcopy.comments.push(this.comment);
+    this.dishService.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+      errmess => { this.dish = null;  this.errMess = <any>errmess; });
+    this.commentFormDirective.resetForm();
+    this.commentForm.reset({
+      author: '',
+      rating: 5,
+      comment: '',
+    });
+  } */
 }
